@@ -49,3 +49,15 @@ layouts that the Rust program can read; it accepts only exactly 166 bytes of
 the current serialized layout. Neither decoder verifies the account owner or
 that a payload came from a trusted transaction. Check those separately when a
 real client is designed.
+
+## Unsigned message compiler
+
+`beam-message.mjs` compiles the instruction objects above into unsigned legacy
+Solana `Message` bytes and parses them back; see [MESSAGE.md](MESSAGE.md).
+`fixtures/messages.json` holds golden bytes produced by `@solana/web3.js`
+1.98.0 over the native-SOL fixtures (`tools/generate-message-fixtures.mjs`).
+Construction stops at the bytes to sign: no key, signature, RPC or sending.
+
+```sh
+node --test sdk/beam-message.test.mjs
+```
